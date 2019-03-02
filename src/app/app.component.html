@@ -1,0 +1,66 @@
+<app-modal #imageModal>
+  <div class="app-modal-body">
+    <div class="managegroup-popup-error-message">
+      <button type="button" class="close" aria-label="Close" (click) = "imageModal.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <img class="largeImage" [src]="largeImage">
+    </div>
+  </div>
+</app-modal>
+<div class="title row">
+  <div class="col-lg-12 col-md-12 col-s-12 col-xs-12 marginTpBtm">
+    <h2 class="titleBorder">JS Books</h2>
+  </div>
+  <div class="functionsList col-lg-3 col-md-3 col-s-12 col-xs-12">
+    <div class="sortFunction titleBorder marginTpBtm">
+      <h4>Sort by</h4>
+      <div>
+        <form [formGroup]="sortForm">
+          <div class="radioButtons">
+            <input type="radio" formControlName="sortOptions" value="pages"> No. of Pages
+          </div>
+          <div class="radioButtons">
+            <input type="radio" formControlName="sortOptions" value="date"> Release Date
+          </div>
+          <div class="radioButtons">
+            <input type="radio" formControlName="sortOptions" value="name"> Surname of Author
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="filterFunction titleBorder marginTpBtm">
+      <h4>Show only</h4>
+      <div>
+        <form [formGroup]="filterForm">
+          <label>
+            Above
+            <input type="text" formControlName="showOnly">
+            Pages
+          </label>
+        </form>
+      </div>
+    </div>
+    <div class="radioButtons resetBtn">
+      <input class="btn btn-secondary" type="reset" value="Reset">
+    </div>
+  </div>
+  <div class="bookList col-lg-9 col-md-9 col-s-12 col-xs-12">
+    <ul>
+      <li *ngFor="let v of booksJson; index as i" class="book">
+        <div class="index">{{i+1}}</div>
+        <div class="imgTitle" (click)="imageModalOpen($event);">
+          <img [src]="v.cover.small">
+          <h5 class="booktitle"> {{v.title}}</h5>
+          <hr>
+        </div>
+        <div class="imgTitle italicFont">
+          <p> By {{v.author}}</p>
+          <p class="pmargin">Release Date: {{v.releaseDate}}</p>
+          <p class="pmargin">Pages: {{v.pages}}</p>
+          <p class="pmargin">Link: <a class="link" [href]="v.link" target="_blank">shop</a></p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
