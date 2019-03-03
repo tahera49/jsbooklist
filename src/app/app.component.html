@@ -1,7 +1,7 @@
 <app-modal #imageModal>
   <div class="app-modal-body">
     <div class="managegroup-popup-error-message">
-      <button type="button" class="close" aria-label="Close" (click) = "imageModal.hide()">
+      <button type="button" class="close" aria-label="Close" (click)="imageModal.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
       <img class="largeImage" [src]="largeImage">
@@ -18,13 +18,13 @@
       <div>
         <form [formGroup]="sortForm">
           <div class="radioButtons">
-            <input type="radio" formControlName="sortOptions" value="pages"> No. of Pages
+            <input type="radio" formControlName="sortOptions" value="pages" (change)="sortFilter()"> No. of Pages
           </div>
           <div class="radioButtons">
-            <input type="radio" formControlName="sortOptions" value="date"> Release Date
+            <input type="radio" formControlName="sortOptions" value="date" (change)="sortFilter()"> Release Date
           </div>
           <div class="radioButtons">
-            <input type="radio" formControlName="sortOptions" value="name"> Surname of Author
+            <input type="radio" formControlName="sortOptions" value="name" (change)="sortFilter()"> Surname of Author
           </div>
         </form>
       </div>
@@ -35,32 +35,52 @@
         <form [formGroup]="filterForm">
           <label>
             Above
-            <input type="text" formControlName="showOnly">
+            <input type="number" formControlName="showOnly" (change)="filerByNumbers()">
             Pages
           </label>
         </form>
       </div>
     </div>
     <div class="radioButtons resetBtn">
-      <input class="btn btn-secondary" type="reset" value="Reset">
+      <input class="btn btn-secondary" type="reset" value="Reset" (click)="resetForm()">
     </div>
   </div>
   <div class="bookList col-lg-9 col-md-9 col-s-12 col-xs-12">
-    <ul>
-      <li *ngFor="let v of booksJson; index as i" class="book">
-        <div class="index">{{i+1}}</div>
-        <div class="imgTitle" (click)="imageModalOpen($event);">
-          <img [src]="v.cover.small">
-          <h5 class="booktitle"> {{v.title}}</h5>
-          <hr>
-        </div>
-        <div class="imgTitle italicFont">
-          <p> By {{v.author}}</p>
-          <p class="pmargin">Release Date: {{v.releaseDate}}</p>
-          <p class="pmargin">Pages: {{v.pages}}</p>
-          <p class="pmargin">Link: <a class="link" [href]="v.link" target="_blank">shop</a></p>
-        </div>
-      </li>
-    </ul>
+    <div *ngIf="!showFilters">
+      <ul>
+        <li *ngFor="let v of booksJson; index as i" class="book">
+          <div class="index">{{i+1}}</div>
+          <div class="imgTitle" (click)="imageModalOpen($event);">
+            <img [src]="v.cover.small">
+            <h5 class="booktitle"> {{v.title}}</h5>
+            <hr>
+          </div>
+          <div class="imgTitle italicFont">
+            <p> By {{v.author}}</p>
+            <p class="pmargin">Release Date: {{v.releaseDate}}</p>
+            <p class="pmargin">Pages: {{v.pages}}</p>
+            <p class="pmargin">Link: <a class="link" [href]="v.link" target="_blank">shop</a></p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="showFilters">
+      <ul>
+        <li *ngFor="let v of pagesFilterJson; index as i" class="book">
+          <div class="index">{{i+1}}</div>
+          <div class="imgTitle" (click)="imageModalOpen($event);">
+            <img [src]="v.cover.small">
+            <h5 class="booktitle"> {{v.title}}</h5>
+            <hr>
+          </div>
+          <div class="imgTitle italicFont">
+            <p> By {{v.author}}</p>
+            <p class="pmargin">Release Date: {{v.releaseDate}}</p>
+            <p class="pmargin">Pages: {{v.pages}}</p>
+            <p class="pmargin">Link: <a class="link" [href]="v.link" target="_blank">shop</a></p>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
