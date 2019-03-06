@@ -10,7 +10,7 @@ declare var jQuery: any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+  title = 'JS Book List';
   sortForm: FormGroup;
   filterForm: FormGroup;
   booksJson: any;
